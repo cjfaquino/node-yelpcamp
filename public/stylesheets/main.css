@@ -1,0 +1,26 @@
+.btn-sm {
+	padding: 1px 7px;
+}
+
+.card {
+	padding: 0;
+}
+
+
+.delete-form {
+	display:inline;
+}
+
+.nav-link {
+	color: white;
+}
+
+.nav-link:hover {
+	background-color: white;
+}
+
+/* Google Maps */
+#map {
+    height: 400px;
+    width: 100%;
+}
