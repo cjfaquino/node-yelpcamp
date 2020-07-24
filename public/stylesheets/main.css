@@ -6,7 +6,6 @@
 	padding: 0;
 }
 
-
 .delete-form {
 	display:inline;
 }
@@ -17,6 +16,14 @@
 
 .nav-link:hover {
 	background-color: white;
+}
+
+#aboutMe {
+	padding: 1em;
+}
+
+#camplist a {
+	font-size: 1.5em;
 }
 
 /* Google Maps */

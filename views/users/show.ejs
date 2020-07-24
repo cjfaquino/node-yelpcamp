@@ -1,0 +1,19 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+	<div id="aboutMe" class="card col-md-4">
+		<h1><%= user.firstName %></h1>
+		<p><%= user.username %></p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem voluptatum numquam, minus iure quidem laborum ipsa cumque saepe dignissimos a! Facilis amet velit pariatur quae cumque optio voluptates eius sunt.</p>
+	</div>
+	<div class="col-md-8">
+		<h3>Submitted Campgrounds</h3>
+		<ul id="camplist">
+		<% campgrounds.forEach(function(campgrounds) { %>
+			<li><a href="/campgrounds/<%=campgrounds.id%>"><%= campgrounds.name%></a>, <%= moment(campgrounds.createdAt).fromNow() %></li>
+		<% }) %>
+		</ul>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

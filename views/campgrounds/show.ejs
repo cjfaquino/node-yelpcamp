@@ -18,7 +18,7 @@
         </h5>
         <h2 class="card-title"><%= campground.name %></h2>
         <p>
-          <em>Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
+          <em>Submitted by: <strong><a href="/users/<%= campground.author.id %>"> <%= campground.author.firstName %></a></strong>, <%= moment(campground.createdAt).fromNow() %></em>
         </p>
         <hr>
         <p class="card-text"><%= campground.description %></p>
@@ -42,7 +42,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="float-left">
-					<p class="card-title"><strong><%= comment.author.username %></strong></p>
+					<p class="card-title"><strong><a href="/users/<%= comment.author.id %>"> <%= comment.author.firstName %></a></strong></p>
                   <p class="card-text"><%= comment.text %></p>
                 </div>
                 <div class="float-right">

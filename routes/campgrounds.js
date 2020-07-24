@@ -22,7 +22,7 @@ router.post('/', middleware.isLoggedIn, function (req, res) {
 	let price = req.body.price;
 	let author = {
 		id: req.user._id,
-		username: req.user.username,
+		firstName: req.user.firstName,
 	};
 	let newCamp = { name: name, price: price, image: image, description: desc, author: author };
 	Campground.create(newCamp, function (err, newlyCreated) {
