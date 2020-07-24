@@ -16,7 +16,7 @@ router.get('/register', function (req, res) {
 
 //Sign up logic
 router.post('/register', function (req, res) {
-	User.register(new User({ username: req.body.username }), req.body.password, function (
+	User.register(new User({ username: req.body.username, firstName: req.body.firstName }), req.body.password, function (
 		err,
 		user
 	) {
@@ -25,7 +25,7 @@ router.post('/register', function (req, res) {
 			return res.render('register');
 		}
 		passport.authenticate('local')(req, res, function () {
-			req.flash('success', "Welcome to YelpCamp " + user.username);
+			req.flash('success', "Welcome to YelpCamp " + user.firstName);
 			res.redirect('/campgrounds');
 		});
 	});
