@@ -14,7 +14,11 @@
       <img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>">
       <div class="card-body">
         <h5 class="float-right">
-          $<%= campground.price %>/night
+          <% if(campground.price === 0) { %>
+			Free
+			<% } else { %>
+			$<%= campground.price %>/night
+			<% } %>
         </h5>
         <h2 class="card-title"><%= campground.name %></h2>
         <p>
