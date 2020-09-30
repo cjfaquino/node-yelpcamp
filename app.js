@@ -1,29 +1,32 @@
 const express = require('express'),
-	app = express(),
-	flash = require('connect-flash'),
-	request = require('request'),
-	passport = require('passport'),
-	bodyParser = require('body-parser'),
-	LocalStrategy = require('passport-local'),
-	passportLocalMongoose = require('passport-local-mongoose'),
-	methodOverride = require('method-override'),
-	mongoose = require('mongoose'),
-	Campground = require('./models/campground'),
-	Comment = require('./models/comment'),
-	User = require('./models/user'),
-	seedDB = require('./seeds');
+  app = express(),
+  flash = require('connect-flash'),
+  request = require('request'),
+  passport = require('passport'),
+  bodyParser = require('body-parser'),
+  LocalStrategy = require('passport-local'),
+  passportLocalMongoose = require('passport-local-mongoose'),
+  methodOverride = require('method-override'),
+  mongoose = require('mongoose'),
+  Campground = require('./models/campground'),
+  Comment = require('./models/comment'),
+  User = require('./models/user'),
+  seedDB = require('./seeds'),
+  port = 3000,
+  dotenv = require('dotenv').config();
 
 const commentRoutes = require('./routes/comments'),
-	campgroundRoutes = require('./routes/campgrounds'),
-	indexRoutes = require('./routes/index');
+  campgroundRoutes = require('./routes/campgrounds'),
+  indexRoutes = require('./routes/index');
 
+const database = process.env.DATABASEURL || 'mongodb://localhost:27017/yelp_camp';
 mongoose
-	.connect('mongodb://localhost:27017/yelp_camp', {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => console.log('Connected to DB!'))
-	.catch((error) => console.log(error.message));
+  .connect(database, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Connected to DB!'))
+  .catch((error) => console.log(error.message));
 
 app.locals.moment = require('moment');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,11 +38,11 @@ app.use(flash());
 
 //===PASSPORT CONFIG
 app.use(
-	require('express-session')({
-		secret: 'sketchy',
-		resave: false,
-		saveUninitialized: false,
-	})
+  require('express-session')({
+    secret: 'sketchy',
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,16 +51,16 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(function (req, res, next) {
-	res.locals.currentUser = req.user;
-	res.locals.error = req.flash('error');
-	res.locals.success = req.flash('success');
-	next();
+  res.locals.currentUser = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  next();
 });
 
 app.use(indexRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/comments', commentRoutes);
 
-app.listen(3000 || process.env.PORT, process.env.IP, () => {
-  console.log('Server running');
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
