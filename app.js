@@ -12,7 +12,7 @@ const express = require('express'),
   Comment = require('./models/comment'),
   User = require('./models/user'),
   seedDB = require('./seeds'),
-  port = 3000,
+  PORT = process.env.PORT || 8080,
   dotenv = require('dotenv').config();
 
 const commentRoutes = require('./routes/comments'),
@@ -61,6 +61,6 @@ app.use(indexRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/comments', commentRoutes);
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
